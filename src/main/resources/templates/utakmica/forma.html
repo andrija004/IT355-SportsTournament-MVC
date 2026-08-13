@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Utakmica - Forma')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('utakmice')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 th:text="${naslov}">Utakmica</h1>
+        <a th:href="@{/utakmice}" class="btn btn-secondary">Nazad</a>
+    </div>
+
+    <div class="form-card">
+        <form th:action="@{/utakmice/sacuvaj}" th:object="${utakmica}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+                <label for="datumVreme">Datum i vreme *</label>
+                <input type="datetime-local" id="datumVreme" th:field="*{datumVreme}"
+                       class="form-control" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="domacinId">Domacin (tim) *</label>
+                <select id="domacinId" th:field="*{domacinId}" class="form-control" required>
+                    <option value="">-- Izaberite domacina --</option>
+                    <option th:each="tim : ${timovi}"
+                            th:value="${tim.id}"
+                            th:text="${tim.naziv}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gostId">Gost (tim) *</label>
+                <select id="gostId" th:field="*{gostId}" class="form-control" required>
+                    <option value="">-- Izaberite gosta --</option>
+                    <option th:each="tim : ${timovi}"
+                            th:value="${tim.id}"
+                            th:text="${tim.naziv}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="terenId">Teren *</label>
+                <select id="terenId" th:field="*{terenId}" class="form-control" required>
+                    <option value="">-- Izaberite teren --</option>
+                    <option th:each="teren : ${tereni}"
+                            th:value="${teren.id}"
+                            th:text="${teren.naziv + ' - ' + teren.lokacija}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sudijaId">Sudija *</label>
+                <select id="sudijaId" th:field="*{sudijaId}" class="form-control" required>
+                    <option value="">-- Izaberite sudiju --</option>
+                    <option th:each="sudija : ${sudije}"
+                            th:value="${sudija.id}"
+                            th:text="${sudija.punoIme + ' (' + sudija.licenca + ')'}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="rezultat">Rezultat (ostavite prazno ako nije odigrana)</label>
+                <input type="text" id="rezultat" th:field="*{rezultat}" class="form-control"
+                       placeholder="npr. 2:1"/>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Sacuvaj</button>
+                <a th:href="@{/utakmice}" class="btn btn-secondary">Otkazi</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

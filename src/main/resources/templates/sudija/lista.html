@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Sudije')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('sudije')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Sudije</h1>
+        <a th:href="@{/sudije/novi}" class="btn btn-primary">+ Dodaj Sudiju</a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(sudije)}" class="empty-state">
+        <p>Nema unesenih sudija. <a th:href="@{/sudije/novi}">Dodajte prvog sudiju.</a></p>
+    </div>
+
+    <div class="table-wrapper" th:unless="${#lists.isEmpty(sudije)}">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ime i prezime</th>
+                    <th>Licenca</th>
+                    <th>Godine iskustva</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="sudija, stat : ${sudije}">
+                    <td th:text="${stat.count}">1</td>
+                    <td>
+                        <a th:href="@{/sudije/{id}(id=${sudija.id})}"
+                           th:text="${sudija.punoIme}" style="color:#e94560; font-weight:600; text-decoration:none;"></a>
+                    </td>
+                    <td><span class="badge badge-secondary" th:text="${sudija.licenca}"></span></td>
+                    <td th:text="${sudija.godineIskustva} + ' god.'"></td>
+                    <td>
+                        <div class="btn-group">
+                            <a th:href="@{/sudije/{id}(id=${sudija.id})}" class="btn btn-info btn-sm">Detalji</a>
+                            <a th:href="@{/sudije/izmeni/{id}(id=${sudija.id})}" class="btn btn-warning btn-sm">Izmeni</a>
+                            <a th:href="@{/sudije/obrisi/{id}(id=${sudija.id})}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Da li ste sigurni da zelite da obrisete ovog sudiju?')">Obrisi</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

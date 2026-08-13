@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Timovi')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('timovi')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Timovi</h1>
+        <a th:href="@{/timovi/novi}" class="btn btn-primary">+ Dodaj Tim</a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(timovi)}" class="empty-state">
+        <p>Nema unesenih timova. <a th:href="@{/timovi/novi}">Dodajte prvi tim.</a></p>
+    </div>
+
+    <div class="table-wrapper" th:unless="${#lists.isEmpty(timovi)}">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Naziv tima</th>
+                    <th>Grad</th>
+                    <th>Godina osnivanja</th>
+                    <th>Trener</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="tim, stat : ${timovi}">
+                    <td th:text="${stat.count}">1</td>
+                    <td>
+                        <a th:href="@{/timovi/{id}(id=${tim.id})}"
+                           th:text="${tim.naziv}" style="color:#e94560; font-weight:600; text-decoration:none;"></a>
+                    </td>
+                    <td th:text="${tim.grad}"></td>
+                    <td th:text="${tim.godinaOsnivanja}"></td>
+                    <td th:text="${tim.trener}"></td>
+                    <td>
+                        <div class="btn-group">
+                            <a th:href="@{/timovi/{id}(id=${tim.id})}" class="btn btn-info btn-sm">Detalji</a>
+                            <a th:href="@{/timovi/izmeni/{id}(id=${tim.id})}" class="btn btn-warning btn-sm">Izmeni</a>
+                            <a th:href="@{/timovi/obrisi/{id}(id=${tim.id})}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Da li ste sigurni da zelite da obrisete ovaj tim?')">Obrisi</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

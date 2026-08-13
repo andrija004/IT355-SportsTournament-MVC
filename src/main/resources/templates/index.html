@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Pocetna')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('pocetna')}"></nav>
+
+<div class="container">
+
+    <div class="hero">
+        <div>
+            <h1>Upravljanje Sportskim Turnirom</h1>
+            <p>Evidencija timova, igraca, utakmica, terena i sudija na jednom mestu.</p>
+        </div>
+        <div class="hero-icon">&#9917;</div>
+    </div>
+
+    <!-- Statistike -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number" th:text="${brojTimova}">0</div>
+            <div class="stat-label">Timovi</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" th:text="${brojIgraca}">0</div>
+            <div class="stat-label">Igraci</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" th:text="${brojUtakmica}">0</div>
+            <div class="stat-label">Utakmice</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" th:text="${brojTerena}">0</div>
+            <div class="stat-label">Tereni</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" th:text="${brojSudija}">0</div>
+            <div class="stat-label">Sudije</div>
+        </div>
+    </div>
+
+    <!-- Brzi pristup -->
+    <div class="card">
+        <div class="card-title">Brzi Pristup</div>
+        <div class="btn-group">
+            <a th:href="@{/timovi/novi}" class="btn btn-primary">+ Dodaj Tim</a>
+            <a th:href="@{/igraci/novi}" class="btn btn-primary">+ Dodaj Igraca</a>
+            <a th:href="@{/utakmice/novi}" class="btn btn-primary">+ Zakazi Utakmicu</a>
+            <a th:href="@{/tereni/novi}" class="btn btn-outline">+ Novi Teren</a>
+            <a th:href="@{/sudije/novi}" class="btn btn-outline">+ Novi Sudija</a>
+        </div>
+    </div>
+
+    <!-- Raspored utakmica -->
+    <div class="card">
+        <div class="card-title">Raspored Utakmica</div>
+        <div th:if="${#lists.isEmpty(poslednjeUtakmice)}" class="empty-state">
+            Nema zakazanih utakmica.
+        </div>
+        <div class="table-wrapper" th:unless="${#lists.isEmpty(poslednjeUtakmice)}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Datum i vreme</th>
+                        <th>Domacin</th>
+                        <th>Gost</th>
+                        <th>Rezultat</th>
+                        <th>Akcija</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="u : ${poslednjeUtakmice}">
+                        <td th:text="${#temporals.format(u.datumVreme, 'dd.MM.yyyy HH:mm')}"></td>
+                        <td>Tim ID: <span th:text="${u.domacinId}"></span></td>
+                        <td>Tim ID: <span th:text="${u.gostId}"></span></td>
+                        <td>
+                            <span th:if="${u.rezultat != null}"
+                                  class="badge badge-success" th:text="${u.rezultat}"></span>
+                            <span th:unless="${u.rezultat != null}"
+                                  class="badge badge-warning">Nije odigrana</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/utakmice/{id}(id=${u.id})}" class="btn btn-info btn-sm">Detalji</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

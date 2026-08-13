@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Igraci')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('igraci')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Igraci</h1>
+        <a th:href="@{/igraci/novi}" class="btn btn-primary">+ Dodaj Igraca</a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(igraci)}" class="empty-state">
+        <p>Nema unesenih igraca. <a th:href="@{/igraci/novi}">Dodajte prvog igraca.</a></p>
+    </div>
+
+    <div class="table-wrapper" th:unless="${#lists.isEmpty(igraci)}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Br. dresa</th>
+                    <th>Ime i prezime</th>
+                    <th>Pozicija</th>
+                    <th>Tim</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="igrac : ${igraci}">
+                    <td th:text="${igrac.brojDresa}"></td>
+                    <td>
+                        <a th:href="@{/igraci/{id}(id=${igrac.id})}"
+                           th:text="${igrac.punoIme}" style="color:#e94560; font-weight:600; text-decoration:none;"></a>
+                    </td>
+                    <td>
+                        <span class="badge badge-info" th:text="${igrac.pozicija}"></span>
+                    </td>
+                    <td>
+                        <a th:each="tim : ${timovi}" th:if="${tim.id == igrac.timId}"
+                           th:href="@{/timovi/{id}(id=${tim.id})}"
+                           th:text="${tim.naziv}"
+                           style="color:#0f3460; text-decoration:none;"></a>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a th:href="@{/igraci/{id}(id=${igrac.id})}" class="btn btn-info btn-sm">Detalji</a>
+                            <a th:href="@{/igraci/izmeni/{id}(id=${igrac.id})}" class="btn btn-warning btn-sm">Izmeni</a>
+                            <a th:href="@{/igraci/obrisi/{id}(id=${igrac.id})}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Da li ste sigurni da zelite da obrisete ovog igraca?')">Obrisi</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- ===== HEADER FRAGMENT ===== -->
+<head th:fragment="head(naslov)">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${naslov} + ' | Sportski Turnir'">Sportski Turnir</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+
+<!-- ===== NAVBAR FRAGMENT ===== -->
+<nav th:fragment="navbar(aktivna)" class="navbar">
+    <a th:href="@{/}" class="navbar-brand">&#9917; <span>Sportski Turnir</span></a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/}" th:classappend="${aktivna == 'pocetna'} ? 'active'">Pocetna</a></li>
+        <li><a th:href="@{/timovi}" th:classappend="${aktivna == 'timovi'} ? 'active'">Timovi</a></li>
+        <li><a th:href="@{/igraci}" th:classappend="${aktivna == 'igraci'} ? 'active'">Igraci</a></li>
+        <li><a th:href="@{/utakmice}" th:classappend="${aktivna == 'utakmice'} ? 'active'">Utakmice</a></li>
+        <li><a th:href="@{/tereni}" th:classappend="${aktivna == 'tereni'} ? 'active'">Tereni</a></li>
+        <li><a th:href="@{/sudije}" th:classappend="${aktivna == 'sudije'} ? 'active'">Sudije</a></li>
+    </ul>
+</nav>
+
+<!-- ===== FOOTER FRAGMENT ===== -->
+<footer th:fragment="footer">
+    <p>Sportski Turnir &copy; 2025 &mdash; IT355 Web Sistemi 2 &mdash; Andrija Milenkovic</p>
+</footer>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Detalji utakmice')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('utakmice')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>
+            <span th:if="${domacin != null}" th:text="${domacin.naziv}">Domacin</span>
+            vs
+            <span th:if="${gost != null}" th:text="${gost.naziv}">Gost</span>
+        </h1>
+        <div class="btn-group">
+            <a th:href="@{/utakmice/izmeni/{id}(id=${utakmica.id})}" class="btn btn-warning">Izmeni</a>
+            <a th:href="@{/utakmice/obrisi/{id}(id=${utakmica.id})}" class="btn btn-danger"
+               onclick="return confirm('Da li ste sigurni?')">Obrisi</a>
+            <a th:href="@{/utakmice}" class="btn btn-secondary">Nazad</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Detalji utakmice</div>
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">Datum i vreme</div>
+                <div class="detail-value"
+                     th:text="${#temporals.format(utakmica.datumVreme, 'dd.MM.yyyy u HH:mm')}"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Domacin</div>
+                <div class="detail-value">
+                    <a th:if="${domacin != null}"
+                       th:href="@{/timovi/{id}(id=${domacin.id})}"
+                       th:text="${domacin.naziv}"
+                       style="color:#e94560; text-decoration:none;"></a>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Gost</div>
+                <div class="detail-value">
+                    <a th:if="${gost != null}"
+                       th:href="@{/timovi/{id}(id=${gost.id})}"
+                       th:text="${gost.naziv}"
+                       style="color:#e94560; text-decoration:none;"></a>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Teren</div>
+                <div class="detail-value">
+                    <a th:if="${teren != null}"
+                       th:href="@{/tereni/{id}(id=${teren.id})}"
+                       th:text="${teren.naziv}"
+                       style="color:#0f3460; text-decoration:none;"></a>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Sudija</div>
+                <div class="detail-value">
+                    <a th:if="${sudija != null}"
+                       th:href="@{/sudije/{id}(id=${sudija.id})}"
+                       th:text="${sudija.punoIme}"
+                       style="color:#0f3460; text-decoration:none;"></a>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Rezultat</div>
+                <div class="detail-value">
+                    <span th:if="${utakmica.rezultat != null}"
+                          class="badge badge-success"
+                          style="font-size:1.1rem; padding:0.4rem 0.9rem;"
+                          th:text="${utakmica.rezultat}"></span>
+                    <span th:unless="${utakmica.rezultat != null}"
+                          class="badge badge-warning">Nije odigrana</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

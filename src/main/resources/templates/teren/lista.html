@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Tereni')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('tereni')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Tereni</h1>
+        <a th:href="@{/tereni/novi}" class="btn btn-primary">+ Dodaj Teren</a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(tereni)}" class="empty-state">
+        <p>Nema unesenih terena. <a th:href="@{/tereni/novi}">Dodajte prvi teren.</a></p>
+    </div>
+
+    <div class="table-wrapper" th:unless="${#lists.isEmpty(tereni)}">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Naziv</th>
+                    <th>Lokacija</th>
+                    <th>Kapacitet</th>
+                    <th>Tip podloge</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="teren, stat : ${tereni}">
+                    <td th:text="${stat.count}">1</td>
+                    <td>
+                        <a th:href="@{/tereni/{id}(id=${teren.id})}"
+                           th:text="${teren.naziv}" style="color:#e94560; font-weight:600; text-decoration:none;"></a>
+                    </td>
+                    <td th:text="${teren.lokacija}"></td>
+                    <td th:text="${#numbers.formatInteger(teren.kapacitet, 1, 'COMMA')}"></td>
+                    <td>
+                        <span class="badge badge-success" th:text="${teren.tip}"></span>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a th:href="@{/tereni/{id}(id=${teren.id})}" class="btn btn-info btn-sm">Detalji</a>
+                            <a th:href="@{/tereni/izmeni/{id}(id=${teren.id})}" class="btn btn-warning btn-sm">Izmeni</a>
+                            <a th:href="@{/tereni/obrisi/{id}(id=${teren.id})}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Da li ste sigurni da zelite da obrisete ovaj teren?')">Obrisi</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

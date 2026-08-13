@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Detalji terena')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('tereni')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 th:text="${teren.naziv}">Teren</h1>
+        <div class="btn-group">
+            <a th:href="@{/tereni/izmeni/{id}(id=${teren.id})}" class="btn btn-warning">Izmeni</a>
+            <a th:href="@{/tereni/obrisi/{id}(id=${teren.id})}" class="btn btn-danger"
+               onclick="return confirm('Da li ste sigurni?')">Obrisi</a>
+            <a th:href="@{/tereni}" class="btn btn-secondary">Nazad</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Informacije o terenu</div>
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">Naziv</div>
+                <div class="detail-value" th:text="${teren.naziv}"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Lokacija</div>
+                <div class="detail-value" th:text="${teren.lokacija}"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Kapacitet</div>
+                <div class="detail-value" th:text="${#numbers.formatInteger(teren.kapacitet, 1, 'COMMA')} + ' mesta'"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Tip podloge</div>
+                <div class="detail-value">
+                    <span class="badge badge-success" th:text="${teren.tip}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Utakmice na terenu -->
+    <div class="card">
+        <div class="card-title">Raspored utakmica na ovom terenu</div>
+
+        <div th:if="${#lists.isEmpty(utakmice)}" class="empty-state">
+            Na ovom terenu nema zakazanih utakmica.
+        </div>
+
+        <div class="table-wrapper" th:unless="${#lists.isEmpty(utakmice)}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Datum i vreme</th>
+                        <th>Domacin (ID)</th>
+                        <th>Gost (ID)</th>
+                        <th>Rezultat</th>
+                        <th>Detalji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="u : ${utakmice}">
+                        <td th:text="${#temporals.format(u.datumVreme, 'dd.MM.yyyy HH:mm')}"></td>
+                        <td th:text="'Tim #' + ${u.domacinId}"></td>
+                        <td th:text="'Tim #' + ${u.gostId}"></td>
+                        <td>
+                            <span th:if="${u.rezultat != null}"
+                                  class="badge badge-success" th:text="${u.rezultat}"></span>
+                            <span th:unless="${u.rezultat != null}"
+                                  class="badge badge-warning">Nije odigrana</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/utakmice/{id}(id=${u.id})}" class="btn btn-info btn-sm">Detalji</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

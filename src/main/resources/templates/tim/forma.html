@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Tim - Forma')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('timovi')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 th:text="${naslov}">Tim</h1>
+        <a th:href="@{/timovi}" class="btn btn-secondary">Nazad</a>
+    </div>
+
+    <div class="form-card">
+        <form th:action="@{/timovi/sacuvaj}" th:object="${tim}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+                <label for="naziv">Naziv tima *</label>
+                <input type="text" id="naziv" th:field="*{naziv}" class="form-control"
+                       placeholder="npr. FK Zvezda" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="grad">Grad *</label>
+                <input type="text" id="grad" th:field="*{grad}" class="form-control"
+                       placeholder="npr. Beograd" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="godinaOsnivanja">Godina osnivanja *</label>
+                <input type="number" id="godinaOsnivanja" th:field="*{godinaOsnivanja}" class="form-control"
+                       min="1800" max="2025" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="trener">Trener *</label>
+                <input type="text" id="trener" th:field="*{trener}" class="form-control"
+                       placeholder="npr. Marko Jovic" required/>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Sacuvaj</button>
+                <a th:href="@{/timovi}" class="btn btn-secondary">Otkazi</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

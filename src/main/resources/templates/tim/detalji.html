@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Detalji tima')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('timovi')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 th:text="${tim.naziv}">Tim</h1>
+        <div class="btn-group">
+            <a th:href="@{/timovi/izmeni/{id}(id=${tim.id})}" class="btn btn-warning">Izmeni</a>
+            <a th:href="@{/timovi/obrisi/{id}(id=${tim.id})}" class="btn btn-danger"
+               onclick="return confirm('Da li ste sigurni?')">Obrisi</a>
+            <a th:href="@{/timovi}" class="btn btn-secondary">Nazad</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Informacije o timu</div>
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">Naziv</div>
+                <div class="detail-value" th:text="${tim.naziv}"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Grad</div>
+                <div class="detail-value" th:text="${tim.grad}"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Godina osnivanja</div>
+                <div class="detail-value" th:text="${tim.godinaOsnivanja}"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Trener</div>
+                <div class="detail-value" th:text="${tim.trener}"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Igraci tima -->
+    <div class="card">
+        <div class="card-title">
+            Igraci tima
+            <a th:href="@{/igraci/novi}" class="btn btn-primary btn-sm" style="float:right">+ Dodaj igraca</a>
+        </div>
+
+        <div th:if="${#lists.isEmpty(igraci)}" class="empty-state">
+            Ovaj tim nema registrovanih igraca.
+        </div>
+
+        <div class="table-wrapper" th:unless="${#lists.isEmpty(igraci)}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Br. dresa</th>
+                        <th>Ime i prezime</th>
+                        <th>Pozicija</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="igrac : ${igraci}">
+                        <td th:text="${igrac.brojDresa}"></td>
+                        <td th:text="${igrac.punoIme}"></td>
+                        <td th:text="${igrac.pozicija}"></td>
+                        <td>
+                            <div class="btn-group">
+                                <a th:href="@{/igraci/{id}(id=${igrac.id})}" class="btn btn-info btn-sm">Detalji</a>
+                                <a th:href="@{/igraci/izmeni/{id}(id=${igrac.id})}" class="btn btn-warning btn-sm">Izmeni</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

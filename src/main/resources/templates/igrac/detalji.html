@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Detalji igraca')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('igraci')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 th:text="${igrac.punoIme}">Igrac</h1>
+        <div class="btn-group">
+            <a th:href="@{/igraci/izmeni/{id}(id=${igrac.id})}" class="btn btn-warning">Izmeni</a>
+            <a th:href="@{/igraci/obrisi/{id}(id=${igrac.id})}" class="btn btn-danger"
+               onclick="return confirm('Da li ste sigurni?')">Obrisi</a>
+            <a th:href="@{/igraci}" class="btn btn-secondary">Nazad</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Informacije o igracu</div>
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">Ime</div>
+                <div class="detail-value" th:text="${igrac.ime}"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Prezime</div>
+                <div class="detail-value" th:text="${igrac.prezime}"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Pozicija</div>
+                <div class="detail-value">
+                    <span class="badge badge-info" th:text="${igrac.pozicija}"></span>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Broj dresa</div>
+                <div class="detail-value" th:text="${igrac.brojDresa}"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Tim</div>
+                <div class="detail-value">
+                    <a th:if="${tim != null}" th:href="@{/timovi/{id}(id=${tim.id})}"
+                       th:text="${tim.naziv}" style="color:#e94560; text-decoration:none;"></a>
+                    <span th:unless="${tim != null}">Nepoznat</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

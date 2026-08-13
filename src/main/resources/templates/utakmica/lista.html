@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Utakmice')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('utakmice')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Utakmice</h1>
+        <a th:href="@{/utakmice/novi}" class="btn btn-primary">+ Zakazi Utakmicu</a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(utakmice)}" class="empty-state">
+        <p>Nema zakazanih utakmica. <a th:href="@{/utakmice/novi}">Zakazite prvu utakmicu.</a></p>
+    </div>
+
+    <div class="table-wrapper" th:unless="${#lists.isEmpty(utakmice)}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Datum i vreme</th>
+                    <th>Domacin</th>
+                    <th>Gost</th>
+                    <th>Teren</th>
+                    <th>Rezultat</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="u : ${utakmice}">
+                    <td th:text="${#temporals.format(u.datumVreme, 'dd.MM.yyyy HH:mm')}"></td>
+                    <td>
+                        <span th:each="tim : ${timovi}" th:if="${tim.id == u.domacinId}"
+                              th:text="${tim.naziv}" style="font-weight:600;"></span>
+                    </td>
+                    <td>
+                        <span th:each="tim : ${timovi}" th:if="${tim.id == u.gostId}"
+                              th:text="${tim.naziv}"></span>
+                    </td>
+                    <td>
+                        <span th:each="teren : ${tereni}" th:if="${teren.id == u.terenId}"
+                              th:text="${teren.naziv}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${u.rezultat != null}"
+                              class="badge badge-success" th:text="${u.rezultat}"></span>
+                        <span th:unless="${u.rezultat != null}"
+                              class="badge badge-warning">Nije odigrana</span>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a th:href="@{/utakmice/{id}(id=${u.id})}" class="btn btn-info btn-sm">Detalji</a>
+                            <a th:href="@{/utakmice/izmeni/{id}(id=${u.id})}" class="btn btn-warning btn-sm">Izmeni</a>
+                            <a th:href="@{/utakmice/obrisi/{id}(id=${u.id})}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Da li ste sigurni da zelite da obrisete ovu utakmicu?')">Obrisi</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

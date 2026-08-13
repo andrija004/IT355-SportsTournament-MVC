@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Igrac - Forma')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('igraci')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 th:text="${naslov}">Igrac</h1>
+        <a th:href="@{/igraci}" class="btn btn-secondary">Nazad</a>
+    </div>
+
+    <div class="form-card">
+        <form th:action="@{/igraci/sacuvaj}" th:object="${igrac}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+                <label for="ime">Ime *</label>
+                <input type="text" id="ime" th:field="*{ime}" class="form-control"
+                       placeholder="npr. Milan" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="prezime">Prezime *</label>
+                <input type="text" id="prezime" th:field="*{prezime}" class="form-control"
+                       placeholder="npr. Petrovic" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="pozicija">Pozicija *</label>
+                <select id="pozicija" th:field="*{pozicija}" class="form-control" required>
+                    <option value="">-- Izaberite poziciju --</option>
+                    <option value="Golman">Golman</option>
+                    <option value="Odbrana">Odbrana</option>
+                    <option value="Vezni">Vezni red</option>
+                    <option value="Napred">Napadac</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="brojDresa">Broj dresa *</label>
+                <input type="number" id="brojDresa" th:field="*{brojDresa}" class="form-control"
+                       min="1" max="99" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="timId">Tim *</label>
+                <select id="timId" th:field="*{timId}" class="form-control" required>
+                    <option value="">-- Izaberite tim --</option>
+                    <option th:each="tim : ${timovi}"
+                            th:value="${tim.id}"
+                            th:text="${tim.naziv}"></option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Sacuvaj</button>
+                <a th:href="@{/igraci}" class="btn btn-secondary">Otkazi</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

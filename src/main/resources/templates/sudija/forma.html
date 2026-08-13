@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Sudija - Forma')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('sudije')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 th:text="${naslov}">Sudija</h1>
+        <a th:href="@{/sudije}" class="btn btn-secondary">Nazad</a>
+    </div>
+
+    <div class="form-card">
+        <form th:action="@{/sudije/sacuvaj}" th:object="${sudija}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+                <label for="ime">Ime *</label>
+                <input type="text" id="ime" th:field="*{ime}" class="form-control"
+                       placeholder="npr. Aleksandar" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="prezime">Prezime *</label>
+                <input type="text" id="prezime" th:field="*{prezime}" class="form-control"
+                       placeholder="npr. Stankovic" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="licenca">Broj licence *</label>
+                <input type="text" id="licenca" th:field="*{licenca}" class="form-control"
+                       placeholder="npr. RS-001" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="godineIskustva">Godine iskustva *</label>
+                <input type="number" id="godineIskustva" th:field="*{godineIskustva}" class="form-control"
+                       min="0" max="50" required/>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Sacuvaj</button>
+                <a th:href="@{/sudije}" class="btn btn-secondary">Otkazi</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

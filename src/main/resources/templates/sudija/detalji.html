@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Detalji sudije')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('sudije')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 th:text="${sudija.punoIme}">Sudija</h1>
+        <div class="btn-group">
+            <a th:href="@{/sudije/izmeni/{id}(id=${sudija.id})}" class="btn btn-warning">Izmeni</a>
+            <a th:href="@{/sudije/obrisi/{id}(id=${sudija.id})}" class="btn btn-danger"
+               onclick="return confirm('Da li ste sigurni?')">Obrisi</a>
+            <a th:href="@{/sudije}" class="btn btn-secondary">Nazad</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Informacije o sudiji</div>
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="detail-label">Ime</div>
+                <div class="detail-value" th:text="${sudija.ime}"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Prezime</div>
+                <div class="detail-value" th:text="${sudija.prezime}"></div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Broj licence</div>
+                <div class="detail-value">
+                    <span class="badge badge-secondary" th:text="${sudija.licenca}"></span>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Godine iskustva</div>
+                <div class="detail-value" th:text="${sudija.godineIskustva} + ' godina'"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>

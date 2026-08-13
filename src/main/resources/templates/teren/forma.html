@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sr">
+<head th:replace="~{fragmenti :: head('Teren - Forma')}"></head>
+<body>
+
+<nav th:replace="~{fragmenti :: navbar('tereni')}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 th:text="${naslov}">Teren</h1>
+        <a th:href="@{/tereni}" class="btn btn-secondary">Nazad</a>
+    </div>
+
+    <div class="form-card">
+        <form th:action="@{/tereni/sacuvaj}" th:object="${teren}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+                <label for="naziv">Naziv terena *</label>
+                <input type="text" id="naziv" th:field="*{naziv}" class="form-control"
+                       placeholder="npr. Marakana" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="lokacija">Lokacija *</label>
+                <input type="text" id="lokacija" th:field="*{lokacija}" class="form-control"
+                       placeholder="npr. Ljutice Bogdana 1a, Beograd" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="kapacitet">Kapacitet (broj mesta) *</label>
+                <input type="number" id="kapacitet" th:field="*{kapacitet}" class="form-control"
+                       min="100" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="tip">Tip podloge *</label>
+                <select id="tip" th:field="*{tip}" class="form-control" required>
+                    <option value="">-- Izaberite tip --</option>
+                    <option value="Trava">Prirodna trava</option>
+                    <option value="Vestacka trava">Vestacka trava</option>
+                    <option value="Zemlja">Zemlja</option>
+                    <option value="Parket">Parket</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Sacuvaj</button>
+                <a th:href="@{/tereni}" class="btn btn-secondary">Otkazi</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="~{fragmenti :: footer}"></footer>
+</body>
+</html>
