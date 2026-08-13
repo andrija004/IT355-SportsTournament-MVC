@@ -1,0 +1,6 @@
+# Normalizuj kraj linije na LF u repozitorijumu, konvertuj u CRLF lokalno na Windows-u
+* text=auto eol=lf
+
+*.jar binary
+*.bat text eol=crlf
+*.cmd text eol=crlf
