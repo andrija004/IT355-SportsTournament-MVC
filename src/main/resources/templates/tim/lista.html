@@ -29,7 +29,7 @@
             </thead>
             <tbody>
                 <tr th:each="tim, stat : ${timovi}">
-                    <td th:text="${stat.count}">1</td>
+                    <td><span class="rank-badge" th:text="${stat.count}">1</span></td>
                     <td>
                         <a th:href="@{/timovi/{id}(id=${tim.id})}"
                            th:text="${tim.naziv}" style="color:#e94560; font-weight:600; text-decoration:none;"></a>

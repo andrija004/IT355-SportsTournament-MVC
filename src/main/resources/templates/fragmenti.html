@@ -11,7 +11,7 @@
 
 <!-- ===== NAVBAR FRAGMENT ===== -->
 <nav th:fragment="navbar(aktivna)" class="navbar">
-    <a th:href="@{/}" class="navbar-brand">&#9917; <span>Sportski Turnir</span></a>
+    <a th:href="@{/}" class="navbar-brand"><span class="ball-icon">&#9917;</span> <span>Sportski Turnir</span></a>
     <ul class="navbar-nav">
         <li><a th:href="@{/}" th:classappend="${aktivna == 'pocetna'} ? 'active'">Pocetna</a></li>
         <li><a th:href="@{/timovi}" th:classappend="${aktivna == 'timovi'} ? 'active'">Timovi</a></li>
@@ -24,7 +24,7 @@
 
 <!-- ===== FOOTER FRAGMENT ===== -->
 <footer th:fragment="footer">
-    <p>Sportski Turnir &copy; 2025 &mdash; IT355 Web Sistemi 2 &mdash; Andrija Milenkovic</p>
+    <p>&#9917; Sportski Turnir &copy; 2025 &mdash; IT355 Web Sistemi 2 &mdash; Andrija Milenkovic</p>
 </footer>
 
 </html>

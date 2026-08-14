@@ -28,7 +28,7 @@
             </thead>
             <tbody>
                 <tr th:each="igrac : ${igraci}">
-                    <td th:text="${igrac.brojDresa}"></td>
+                    <td><span class="rank-badge" th:text="${igrac.brojDresa}"></span></td>
                     <td>
                         <a th:href="@{/igraci/{id}(id=${igrac.id})}"
                            th:text="${igrac.punoIme}" style="color:#e94560; font-weight:600; text-decoration:none;"></a>
