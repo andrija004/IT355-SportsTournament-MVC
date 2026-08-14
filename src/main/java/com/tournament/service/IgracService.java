@@ -41,4 +41,8 @@ public class IgracService {
     public void obrisi(Long id) {
         data.getIgraci().remove(id);
     }
+
+    public void obrisiPoTimId(Long timId) {
+        data.getIgraci().values().removeIf(i -> timId.equals(i.getTimId()));
+    }
 }

@@ -41,4 +41,9 @@ public class UtakmicaService {
     public void obrisi(Long id) {
         data.getUtakmice().remove(id);
     }
+
+    public void obrisiPoTimId(Long timId) {
+        data.getUtakmice().values().removeIf(u ->
+                timId.equals(u.getDomacinId()) || timId.equals(u.getGostId()));
+    }
 }

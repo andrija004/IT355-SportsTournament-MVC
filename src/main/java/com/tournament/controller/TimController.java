@@ -3,6 +3,7 @@ package com.tournament.controller;
 import com.tournament.model.Tim;
 import com.tournament.service.IgracService;
 import com.tournament.service.TimService;
+import com.tournament.service.UtakmicaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,12 @@ public class TimController {
 
     private final TimService timService;
     private final IgracService igracService;
+    private final UtakmicaService utakmicaService;
 
-    public TimController(TimService timService, IgracService igracService) {
+    public TimController(TimService timService, IgracService igracService, UtakmicaService utakmicaService) {
         this.timService = timService;
         this.igracService = igracService;
+        this.utakmicaService = utakmicaService;
     }
 
     @GetMapping
@@ -58,6 +61,8 @@ public class TimController {
 
     @GetMapping("/obrisi/{id}")
     public String obrisi(@PathVariable Long id) {
+        utakmicaService.obrisiPoTimId(id);
+        igracService.obrisiPoTimId(id);
         timService.obrisi(id);
         return "redirect:/timovi";
     }
