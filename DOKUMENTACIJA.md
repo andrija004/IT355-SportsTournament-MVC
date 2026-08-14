@@ -237,6 +237,31 @@ status rezultata utakmice, dugmadi (`btn-primary`, `btn-outline`, `btn-info`,
 kroz Thymeleaf fragment `fragmenti.html`, čime je izgled aplikacije konzistentan na
 svim stranicama.
 
+Dizajn je tematski prilagođen fudbalu: navigacija u tamnoplavoj "stadionskoj" boji sa
+zelenom linijom terena, hero sekcija na početnoj strani izgleda kao fudbalski teren
+(trava u prugama, bela linija oko ivica, centralni krug), statističke pločice su
+stilizovane kao semafor (tamna pozadina, zlatne cifre), a redni brojevi u tabeli
+timova i brojevi dresova u tabeli igrača prikazani su kao okrugle značke, po uzoru na
+tabelu lige.
+
+**Izgled aplikacije:**
+
+Početna strana:
+
+![Početna strana](screenshots/pocetna.png)
+
+Pregled timova:
+
+![Timovi](screenshots/timovi.png)
+
+Pregled igrača:
+
+![Igrači](screenshots/igraci.png)
+
+Pregled utakmica:
+
+![Utakmice](screenshots/utakmice.png)
+
 ---
 
 ## 8. Uputstvo za pokretanje aplikacije
